@@ -1,3 +1,8 @@
 .idea/
 .gradle/
 build/
+
+# Release signing (never commit keys or passwords)
+keystore.properties
+*.jks
+*.keystore

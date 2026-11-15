@@ -2,7 +2,14 @@ apply plugin: 'com.android.application'
 
 ext {
     geckoviewChannel = "" //if nightly or beta wanted use "-nightly" or "-beta"
-    geckoviewVersion = "115.0.20230726201356"
+    geckoviewVersion = "118.0.20231009140911"
+}
+
+// Release signing: values come from keystore.properties in the project root (not in git).
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
 android {
@@ -15,10 +22,31 @@ android {
         applicationId "com.example.geckobrowser"
         minSdkVersion 16
         targetSdkVersion 33
-        versionCode 1051
-        versionName "0.5.1-gecko115.0.20230726201356"
+        versionCode 1060
+        versionName "0.6.0-gecko118.0.20231009140911"
 
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // One APK per CPU architecture (each ~1/4 of the universal one) plus a universal APK.
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+            universalApk true
+        }
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                storeFile file(keystoreProperties["storeFile"])
+                storePassword keystoreProperties["storePassword"]
+                keyAlias keystoreProperties["keyAlias"]
+                keyPassword keystoreProperties["keyPassword"]
+            }
+        }
     }
 
     buildTypes {
@@ -27,7 +55,10 @@ android {
 //            targetCompatibility JavaVersion.VERSION_1_8.toString()
 //        }
         release {
-            minifyEnabled false
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,9 +70,10 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.media:media:1.0.0'
 
 
-//    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 

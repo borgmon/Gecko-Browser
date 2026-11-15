@@ -8,10 +8,10 @@
                 android:height="36dp" />
 
             <solid
-                android:color="@color/colorPrimaryDark"/>
+                android:color="@color/browserToolbar"/>
             <stroke
                 android:width="3dp"
-                android:color="#FFFFFF" />
+                android:color="@color/browserIcon" />
 
 
             <corners android:radius="0.5dp"/>
@@ -28,10 +28,10 @@
                 android:height="36dp" />
 
             <solid
-                android:color="@color/colorPrimaryDark"/>
+                android:color="@color/browserToolbar"/>
             <stroke
                 android:width="3dp"
-                android:color="#FFFFFF" />
+                android:color="@color/browserIcon" />
 
             <corners android:radius="0.5dp"/>
 

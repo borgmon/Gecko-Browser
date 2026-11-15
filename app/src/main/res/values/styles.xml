@@ -1,10 +1,12 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar" android:forceDarkAllowed="true">
-        <!-- Customize your theme here. -->
+    <!-- Light theme; dialogs and settings use the device's own light theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
+
+    <style name="SettingsTheme" parent="@android:style/Theme.DeviceDefault.Light" />
 
 </resources>

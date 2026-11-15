@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFF</color>
-    <color name="colorPrimaryDark">#303030</color>
+    <!-- Light palette in the style of 2014 Samsung phones (TouchWiz). -->
+    <color name="colorPrimary">#EEF0F2</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorPrimaryDarkTranslucent">#aa000000</color>
-    <color name="colorAccent">#DDDD00</color>
+    <color name="colorAccent">#427BA6</color>
+    <color name="browserToolbar">#EEF0F2</color>
+    <color name="browserToolbarBorder">#C4CAD0</color>
+    <color name="browserIcon">#5E6B76</color>
+    <color name="browserAddressText">#303030</color>
+    <color name="browserAddressHint">#8E8E8E</color>
+    <color name="browserAddressBorder">#BFC6CC</color>
+    <color name="browserAddressHighlight">#79CAF2</color>
+    <color name="browserProgressTrack">#DCE1E5</color>
+    <color name="browserProgress">#427BA6</color>
+    <color name="menuPanel">#F7F8F9</color>
+    <color name="menuPressed">#D3E5F2</color>
+    <color name="menuText">#303030</color>
+    <color name="menuActive">#427BA6</color>
+    <color name="menuDim">#66000000</color>
+    <color name="sslSecure">#258A45</color>
+    <color name="sslInsecure">#C83D3D</color>
+    <color name="sslWarning">#B47B00</color>
 </resources>

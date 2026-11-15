@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Original icon drawn for GeckoBrowser. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FF5E6B76"
+        android:fillType="evenOdd"
+        android:pathData="M2.00,12.00a10.00,10.00 0 1,0 20.00,0a10.00,10.00 0 1,0 -20.00,0z M4.00,12.00a8.00,8.00 0 1,0 16.00,0a8.00,8.00 0 1,0 -16.00,0z" />
+    <path
+        android:fillColor="#FF5E6B76"
+        android:fillType="evenOdd"
+        android:pathData="M11,6h2v5.4l3.6,2.1-1,1.7L11,12.5z" />
+</vector>

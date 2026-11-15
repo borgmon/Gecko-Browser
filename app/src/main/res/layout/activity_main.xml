@@ -5,122 +5,173 @@
     android:id="@+id/mainRelativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".MainActivity">
 
 
+    <!-- Top bar: back | forward | address field (lock, url, reload) | tabs | bookmarks.
+         Colours are applied from code for the light / dark / OLED themes. -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarView"
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
+        android:layout_height="52dp"
+        android:background="@color/browserToolbar"
         app:contentInsetEnd="0dp"
         app:contentInsetLeft="0dp"
         app:contentInsetRight="0dp"
         app:contentInsetStart="0dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/toolbarRelativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/tabsCountViewImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/tab_icon" />
-
-            <TextView
-                android:id="@+id/tabsCountView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@id/tabsCountViewImage"
-                android:layout_alignLeft="@id/tabsCountViewImage"
-                android:layout_alignTop="@id/tabsCountViewImage"
-                android:layout_alignEnd="@id/tabsCountViewImage"
-                android:layout_alignRight="@id/tabsCountViewImage"
-                android:layout_alignBottom="@id/tabsCountViewImage"
-                android:gravity="center"
-                android:paddingTop="6dp"
-                android:paddingLeft="6dp"
-                android:text="@string/_0"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/trackerCountViewImage"
-                android:layout_width="36dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:layout_toEndOf="@+id/tabsCountView"
-                android:layout_toRightOf="@+id/tabsCountView"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/lock_icon_green"
-                android:scaleType="fitCenter"
-                android:paddingTop="10dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginLeft="7dp" />
-
-            <TextView
-                android:id="@+id/trackerCountView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@id/trackerCountViewImage"
-                android:layout_alignLeft="@id/trackerCountViewImage"
-                android:layout_alignTop="@id/trackerCountViewImage"
-                android:layout_alignEnd="@id/trackerCountViewImage"
-                android:layout_alignRight="@id/trackerCountViewImage"
-                android:layout_alignBottom="@id/trackerCountViewImage"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="@string/_0"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-
-            <EditText
-                android:id="@+id/urlEditText"
-                android:layout_width="wrap_content"
+                android:id="@+id/browserBackButton"
+                android:layout_width="44dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@+id/settingsButton"
-                android:layout_toLeftOf="@+id/settingsButton"
-                android:layout_toEndOf="@+id/trackerCountView"
-                android:layout_toRightOf="@+id/trackerCountView"
-                android:background="@android:color/transparent"
-                android:hint="@string/location_hint"
-                android:importantForAutofill="no"
-                android:inputType="text|textUri"
-                android:paddingStart="7dp"
-                android:paddingEnd="7dp"
-                android:selectAllOnFocus="true"
-                android:singleLine="true" />
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/back"
+                android:padding="11dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_nav_back" />
+
+            <View
+                android:id="@+id/toolbarDivider1"
+                android:layout_width="1dp"
+                android:layout_height="28dp"
+                android:background="@color/browserToolbarBorder" />
+
+            <ImageButton
+                android:id="@+id/browserForwardButton"
+                android:layout_width="44dp"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/forward"
+                android:padding="11dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_nav_forward" />
+
+            <LinearLayout
+                android:id="@+id/addressField"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/address_bar_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/sslIndicatorView"
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="@string/ssl_unknown"
+                    android:padding="6dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ssl_lock" />
+
+                <com.example.geckobrowser.UrlEditText
+                    android:id="@+id/urlEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:hint="@string/location_hint"
+                    android:importantForAutofill="no"
+                    android:imeOptions="actionGo|flagNoExtractUi"
+                    android:inputType="text|textUri"
+                    android:paddingStart="2dp"
+                    android:paddingLeft="2dp"
+                    android:paddingEnd="2dp"
+                    android:paddingRight="2dp"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:textColor="@color/browserAddressText"
+                    android:textColorHint="@color/browserAddressHint"
+                    android:textColorHighlight="@color/browserAddressHighlight"
+                    android:textSize="15sp" />
+
+                <ImageButton
+                    android:id="@+id/reloadButton"
+                    android:layout_width="34dp"
+                    android:layout_height="match_parent"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="@string/reload_page"
+                    android:padding="7dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_nav_reload" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/tabsButtonFrame"
+                android:layout_width="46dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/tabsCountViewImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:padding="11dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_toolbar_tabs" />
+
+                <TextView
+                    android:id="@+id/tabsCountView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:contentDescription="@string/tabs"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingRight="4dp"
+                    android:paddingEnd="4dp"
+                    android:text="@string/_0"
+                    android:textColor="@android:color/white"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/toolbarDivider2"
+                android:layout_width="1dp"
+                android:layout_height="28dp"
+                android:background="@color/browserToolbarBorder" />
+
+            <ImageButton
+                android:id="@+id/bookmarksButton"
+                android:layout_width="46dp"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/menu_bookmarks"
+                android:padding="11dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_toolbar_bookmarks" />
 
             <ImageButton
                 android:id="@+id/settingsButton"
-                android:layout_width="42dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/app_name"
-                android:gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/settings"
+                android:padding="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/settings_icon" />
+                android:src="@drawable/menu_hamburger"
+                android:visibility="gone" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -129,18 +180,24 @@
         android:id="@+id/pageProgressView"
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_alignBottom="@id/toolbarView" />
+        android:layout_height="3dp"
+        android:layout_alignBottom="@id/toolbarView"
+        android:progressDrawable="@drawable/browser_progress" />
 
     <org.mozilla.geckoview.GeckoView
         android:id="@+id/geckoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbarView"
-        android:visibility="invisible"
-        tools:context=".MainActivity" >
+        tools:context=".MainActivity" />
 
-    </org.mozilla.geckoview.GeckoView>
+    <!-- Address bar suggestions (history, bookmarks, search engine). -->
+    <ListView
+        android:id="@+id/suggestionsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbarView"
+        android:visibility="gone" />
 
 
 <!--    <androidx.gridlayout.widget.GridLayout-->
@@ -168,5 +225,96 @@
 <!--        android:background="@color/colorPrimaryDarkTranslucent"-->
 <!--        android:visibility="gone"/>-->
 
+    <!-- Full-screen tab switcher, cards are built from code. -->
+    <LinearLayout
+        android:id="@+id/tabSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/tabSwitcherHeader"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/tabSwitcherBack"
+                android:layout_width="52dp"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/back"
+                android:padding="14dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_nav_back" />
+
+            <TextView
+                android:id="@+id/tabSwitcherTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:textSize="19sp" />
+
+            <ImageButton
+                android:id="@+id/tabSwitcherNew"
+                android:layout_width="52dp"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/new_tab"
+                android:padding="13dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_menu_new_tab" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/tabSwitcherScroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/tabSwitcherGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="6dp" />
+        </ScrollView>
+    </LinearLayout>
+
+    <!-- Menu list rising from the bottom (opened with the menu key), filled in from code. -->
+    <FrameLayout
+        android:id="@+id/menuOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/menuDim"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <ScrollView
+            android:id="@+id/bottomMenuScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginRight="24dp"
+            android:fadeScrollbars="false"
+            android:scrollbarStyle="insideOverlay">
+
+            <LinearLayout
+                android:id="@+id/bottomMenuPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:orientation="vertical" />
+        </ScrollView>
+    </FrameLayout>
 
 </RelativeLayout>

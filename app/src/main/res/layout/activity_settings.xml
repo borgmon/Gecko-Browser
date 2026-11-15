@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings"
-        android:textSize="40sp"/>
+        android:textSize="40sp"
+        android:visibility="gone"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,16 +25,66 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                style="?android:attr/listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/title1_browsing_settings"
-                android:textSize="30sp"
-                android:paddingBottom="0dp"
-                android:paddingLeft="7.3dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp"
-                android:paddingStart="7.3dp"
-                android:paddingEnd="10dp" />
+                android:text="@string/title1_browsing_settings" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/homepage"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/homepageEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/homepage_hint"
+                    android:inputType="text|textUri"
+                    android:singleLine="true"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/setDefaultBrowserButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/set_default_browser" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toStartOf="@+id/homepageForNewTabsToggle"
+                    android:layout_toLeftOf="@+id/homepageForNewTabsToggle"
+                    android:text="@string/new_tabs_homepage"
+                    android:textSize="16sp" />
+
+                <Switch
+                    android:id="@+id/homepageForNewTabsToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -42,14 +93,17 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/disableJavascriptToggle"
+                    android:layout_toLeftOf="@+id/disableJavascriptToggle"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/disable_javascript"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <Switch
                     android:id="@+id/disableJavascriptToggle"
@@ -58,8 +112,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:background="?android:attr/colorBackground"/>
+                    android:layout_alignParentEnd="true"/>
 
             </RelativeLayout>
 
@@ -70,14 +123,17 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/disableTPToggle"
+                    android:layout_toLeftOf="@+id/disableTPToggle"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/disable_tracking_protection"
-                    android:textSize="20sp"/>
+                    android:textSize="18sp"/>
 
                 <Switch
                     android:id="@+id/disableTPToggle"
@@ -86,8 +142,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:background="?android:attr/colorBackground"/>
+                    android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
 
@@ -99,14 +154,17 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/desktopToggle"
+                    android:layout_toLeftOf="@+id/desktopToggle"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/desktop_mode"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <Switch
                     android:id="@+id/desktopToggle"
@@ -115,8 +173,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:background="?android:attr/colorBackground"/>
+                    android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
 
@@ -158,14 +215,17 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/privateModeToggle"
+                    android:layout_toLeftOf="@+id/privateModeToggle"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/private_mode"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <Switch
                     android:id="@+id/privateModeToggle"
@@ -174,24 +234,17 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:background="?android:attr/colorBackground"/>
+                    android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
 
 
 
             <TextView
-                android:layout_width="wrap_content"
+                style="?android:attr/listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/title2_ui_settings"
-                android:textSize="30sp"
-                android:paddingBottom="0dp"
-                android:paddingLeft="7.3dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp"
-                android:paddingStart="7.3dp"
-                android:paddingEnd="10dp" />
+                android:text="@string/title2_ui_settings" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -200,14 +253,17 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/autoHideBarToggle"
+                    android:layout_toLeftOf="@+id/autoHideBarToggle"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/autohide_search_bar"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <Switch
                     android:id="@+id/autoHideBarToggle"
@@ -216,8 +272,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:background="?android:attr/colorBackground"/>
+                    android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
 
@@ -228,14 +283,17 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/hideWhiteSplashToggle"
+                    android:layout_toLeftOf="@+id/hideWhiteSplashToggle"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/hide_white_splash"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <Switch
                     android:id="@+id/hideWhiteSplashToggle"
@@ -244,22 +302,175 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:background="?android:attr/colorBackground"/>
+                    android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/title3_search_settings"
-                android:textSize="30sp"
-                android:paddingBottom="0dp"
-                android:paddingLeft="7.3dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp"
-                android:paddingStart="7.3dp"
-                android:paddingEnd="10dp" />
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toStartOf="@id/liteModeToggle"
+                    android:layout_toLeftOf="@id/liteModeToggle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/lite_mode"
+                    android:textSize="20sp" />
+
+                <Switch
+                    android:id="@+id/liteModeToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/theme"
+                    android:textSize="18sp" />
+
+                <RadioGroup
+                    android:id="@+id/themeRadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/themeLight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:text="@string/theme_light"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/themeDark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:text="@string/theme_dark"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/themeOled"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:text="@string/theme_oled"
+                        android:textSize="16sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_mode"
+                    android:textSize="18sp" />
+
+                <RadioGroup
+                    android:id="@+id/tabModeRadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/tabModeLive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:text="@string/tab_mode_live"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/tabModeClassic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:text="@string/tab_mode_classic"
+                        android:textSize="16sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toStartOf="@+id/clearTabsOnExitToggle"
+                    android:layout_toLeftOf="@+id/clearTabsOnExitToggle"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
+                    android:text="@string/clear_tabs_on_exit"
+                    android:textSize="18sp" />
+
+                <Switch
+                    android:id="@+id/clearTabsOnExitToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toStartOf="@+id/blockAdsToggle"
+                    android:layout_toLeftOf="@+id/blockAdsToggle"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
+                    android:text="@string/block_ads"
+                    android:textSize="18sp" />
+
+                <Switch
+                    android:id="@+id/blockAdsToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <TextView
+                style="?android:attr/listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title3_search_settings" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -268,14 +479,17 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/searchSuggestionsToggle"
+                    android:layout_toLeftOf="@+id/searchSuggestionsToggle"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/search_suggestions"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <Switch
                     android:id="@+id/searchSuggestionsToggle"
@@ -284,8 +498,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:background="?android:attr/colorBackground"/>
+                    android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
 

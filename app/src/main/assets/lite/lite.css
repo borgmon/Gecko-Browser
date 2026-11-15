@@ -1,0 +1,51 @@
+/*
+ * Lite mode: strip effects that are expensive to render in software
+ * (old GPUs run WebRender on the CPU). Layout is left untouched.
+ */
+
+/* Stop CSS animations and transitions (spinners, carousels, hover effects). */
+*, *::before, *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Blur/glass effects re-render the page behind them on every frame. */
+*, *::before, *::after {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Fixed backgrounds force a full repaint while scrolling. */
+* {
+  background-attachment: scroll !important;
+}
+
+/* Memory/layer hogs that only help with a fast GPU. */
+* {
+  will-change: auto !important;
+}
+
+/* Text shadows are drawn per glyph; cheap to drop, rarely missed. */
+* {
+  text-shadow: none !important;
+}
+
+/*
+ * Effects that make long, image-heavy listings (anime catalogues, galleries) stutter
+ * while scrolling: every visible card has to be blurred / blended / shadowed again on
+ * the CPU for each frame.
+ */
+*, *::before, *::after {
+  box-shadow: none !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  background-blend-mode: normal !important;
+}
+
+/* Images: no smooth-zoom hover/scale layers and no per-image GPU-style tricks. */
+img, picture, video {
+  transform: none !important;
+}

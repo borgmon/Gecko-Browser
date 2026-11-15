@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Original icon drawn for GeckoBrowser; tinted from code. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M5,2h14v20l-7,-5 -7,5z M12.00,5.00 L13.06,7.74 L15.99,7.90 L13.71,9.76 L14.47,12.60 L12.00,11.00 L9.53,12.60 L10.29,9.76 L8.01,7.90 L10.94,7.74z" />
+</vector>
