@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+# GeckoView: native code calls into Java by class/method name (JNI), so R8 must not
+# rename or remove anything there; without this the release build crashes on start-up.
+-keep class org.mozilla.** { *; }
+-keep interface org.mozilla.** { *; }
+-dontwarn org.mozilla.**

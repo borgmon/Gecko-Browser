@@ -6,6 +6,11 @@ usable on newer ones.
 
 Fork of [ethanc8/Gecko-Browser](https://github.com/ethanc8/Gecko-Browser).
 
+<p>
+  <img src="docs/screenshots/browsing.png" width="270" alt="Browsing a Wikipedia article">
+  <img src="docs/screenshots/menu.png" width="270" alt="Menu opened with the menu key">
+</p>
+
 ## Features
 
 - GeckoView 118 – the last release that still supports Android 4.x
