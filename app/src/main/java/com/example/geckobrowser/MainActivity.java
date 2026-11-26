@@ -231,9 +231,6 @@ public class MainActivity extends AppCompatActivity {
             tabSessions.set(activeTab, mGeckoSession);
         }
         applyUiTheme();
-        if (fullscreenMode) {
-            applyImmersiveUi();
-        }
         setupSuggestions();
         browserBackButton.setAlpha(canGoBack ? 1f : 0.4f);
         browserForwardButton.setAlpha(canGoForward ? 1f : 0.4f);
@@ -701,7 +698,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         autoHideBar = prefs.getBoolean("autoHideBar", false);
-        fullscreenMode = prefs.getBoolean("fullscreen", false);
         liveTabs = isLiveTabsMode(this);
         hideWhiteSplash = prefs.getBoolean("hideWhiteSplash", false);
         searchSuggestions = prefs.getBoolean("searchSuggestions", true);
@@ -1884,6 +1880,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MENU_NEW_TAB = 10;
     private static final int MENU_HISTORY = 11;
     private static final int MENU_SHARE = 12;
+    private static final int MENU_FULLSCREEN = 13;
     private static final int MENU_COLUMNS = 4;
     /** id, icon, label for the bottom menu grid. */
     private static final int[][] BOTTOM_MENU_ITEMS = {
@@ -1894,6 +1891,7 @@ public class MainActivity extends AppCompatActivity {
             {MENU_DOWNLOADS, R.drawable.ic_menu_downloads, R.string.menu_downloads},
             {MENU_SHARE, R.drawable.ic_menu_share, R.string.menu_share},
             {MENU_DESKTOP_MODE, R.drawable.ic_menu_desktop, R.string.menu_desktop},
+            {MENU_FULLSCREEN, R.drawable.ic_menu_fullscreen, R.string.menu_fullscreen},
             {MENU_CLEAR_SITE_DATA, R.drawable.ic_menu_clear_data, R.string.menu_clear_data},
             {MENU_DEFAULT_BROWSER, R.drawable.ic_menu_default_browser, R.string.menu_default_browser},
             {MENU_SETTINGS, R.drawable.ic_menu_settings, R.string.menu_settings},
@@ -1904,6 +1902,7 @@ public class MainActivity extends AppCompatActivity {
     private View bottomMenuScroll;
     private LinearLayout bottomMenuPanel;
     private View desktopMenuCheck;
+    private View fullscreenMenuCheck;
 
     /** Menu as a list rising from the bottom: icon + label rows separated by thin lines. */
     private void setupBottomMenu() {
@@ -1947,6 +1946,9 @@ public class MainActivity extends AppCompatActivity {
             if (item[0] == MENU_DESKTOP_MODE) {
                 desktopMenuCheck = new View(this);
                 row.addView(desktopMenuCheck, new LinearLayout.LayoutParams(dp(22), dp(22)));
+            } else if (item[0] == MENU_FULLSCREEN) {
+                fullscreenMenuCheck = new View(this);
+                row.addView(fullscreenMenuCheck, new LinearLayout.LayoutParams(dp(22), dp(22)));
             }
             row.setOnClickListener(view -> {
                 hideBottomMenu();
@@ -1973,11 +1975,8 @@ public class MainActivity extends AppCompatActivity {
         hideKeyboard(this);
         boolean desktop = getSharedPreferences("settingsPrefs", MODE_PRIVATE)
                 .getBoolean("desktopMode", false);
-        android.graphics.drawable.GradientDrawable box =
-                new android.graphics.drawable.GradientDrawable();
-        box.setStroke(Math.max(1, dp(1)), desktop ? ui.accent : ui.menuIcon);
-        box.setColor(desktop ? ui.accent : 0x00000000);
-        desktopMenuCheck.setBackgroundDrawable(box);
+        styleMenuCheck(desktopMenuCheck, desktop);
+        styleMenuCheck(fullscreenMenuCheck, fullscreenMode);
         menuOverlay.setVisibility(View.VISIBLE);
         menuOverlay.bringToFront();
         bottomMenuScroll.scrollTo(0, 0);
@@ -1985,6 +1984,18 @@ public class MainActivity extends AppCompatActivity {
             bottomMenuScroll.setTranslationY(bottomMenuScroll.getHeight());
             bottomMenuScroll.animate().translationY(0).setDuration(180).start();
         });
+    }
+
+    /** Draws the small square that marks an active menu toggle (desktop, fullscreen). */
+    private void styleMenuCheck(View check, boolean checked) {
+        if (check == null) {
+            return;
+        }
+        android.graphics.drawable.GradientDrawable box =
+                new android.graphics.drawable.GradientDrawable();
+        box.setStroke(Math.max(1, dp(1)), checked ? ui.accent : ui.menuIcon);
+        box.setColor(checked ? ui.accent : 0x00000000);
+        check.setBackgroundDrawable(box);
     }
 
     private void hideBottomMenu() {
@@ -2050,6 +2061,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case MENU_DESKTOP_MODE:
                 toggleDesktopMode();
+                break;
+            case MENU_FULLSCREEN:
+                setFullscreenMode(!fullscreenMode);
                 break;
             case MENU_ADD_FAVORITE:
                 addCurrentPageToFavorites();
@@ -3122,7 +3136,7 @@ public class MainActivity extends AppCompatActivity {
         applyImmersiveUi();
     }
 
-    /** The fullscreen setting: hides the toolbar until the user presses back. */
+    /** Menu toggle: hides the toolbar and system bars until the user presses back. */
     private void setFullscreenMode(boolean enabled) {
         fullscreenMode = enabled;
         applyImmersiveUi();

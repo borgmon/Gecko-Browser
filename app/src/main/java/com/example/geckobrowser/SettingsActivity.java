@@ -83,9 +83,6 @@ public class SettingsActivity extends Activity {
                     editor.putBoolean("autoHideBar", false);
                 }
 
-                s = findViewById(R.id.fullscreenToggle);
-                editor.putBoolean("fullscreen", s.isChecked());
-
                 s = findViewById(R.id.disableTPToggle);
                 if (s.isChecked()){
                     editor.putBoolean("trackingProtection", false);
@@ -168,9 +165,6 @@ public class SettingsActivity extends Activity {
 
         s = findViewById(R.id.autoHideBarToggle);
         s.setChecked(prefs.getBoolean("autoHideBar", false));
-
-        s = findViewById(R.id.fullscreenToggle);
-        s.setChecked(prefs.getBoolean("fullscreen", false));
 
         s = findViewById(R.id.disableTPToggle);
         s.setChecked(!prefs.getBoolean("trackingProtection", true)); //reversed with !
