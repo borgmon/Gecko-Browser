@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
     private String currentPageTitle;
     private int activeTab = 0;
     private boolean browserFullScreen;
+    private boolean fullscreenMode;
     private boolean canGoBack;
     private MediaSessionCompat androidMediaSession;
     private MediaSession geckoMediaSession;
@@ -212,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
         final View decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(visibility -> {
             int hiddenBars = View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-            if (browserFullScreen && (visibility & hiddenBars) != hiddenBars) {
+            if ((browserFullScreen || fullscreenMode) && (visibility & hiddenBars) != hiddenBars) {
                 hideSystemBars();
             }
         });
@@ -230,6 +231,9 @@ public class MainActivity extends AppCompatActivity {
             tabSessions.set(activeTab, mGeckoSession);
         }
         applyUiTheme();
+        if (fullscreenMode) {
+            applyImmersiveUi();
+        }
         setupSuggestions();
         browserBackButton.setAlpha(canGoBack ? 1f : 0.4f);
         browserForwardButton.setAlpha(canGoForward ? 1f : 0.4f);
@@ -697,6 +701,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         autoHideBar = prefs.getBoolean("autoHideBar", false);
+        fullscreenMode = prefs.getBoolean("fullscreen", false);
         liveTabs = isLiveTabsMode(this);
         hideWhiteSplash = prefs.getBoolean("hideWhiteSplash", false);
         searchSuggestions = prefs.getBoolean("searchSuggestions", true);
@@ -3103,6 +3108,8 @@ public class MainActivity extends AppCompatActivity {
             hideTabSwitcher();
         } else if (browserFullScreen && mGeckoSession != null) {
             mGeckoSession.exitFullScreen();
+        } else if (fullscreenMode) {
+            setFullscreenMode(false);
         } else if (canGoBack && mGeckoSession != null) {
             mGeckoSession.goBack();
         } else {
@@ -3112,16 +3119,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void setBrowserFullScreen(boolean fullScreen) {
         browserFullScreen = fullScreen;
+        applyImmersiveUi();
+    }
+
+    /** The fullscreen setting: hides the toolbar until the user presses back. */
+    private void setFullscreenMode(boolean enabled) {
+        fullscreenMode = enabled;
+        applyImmersiveUi();
+    }
+
+    /**
+     * Hides the toolbar and system bars while either HTML5 fullscreen or the
+     * fullscreen setting is active, and restores them once both are off.
+     */
+    private void applyImmersiveUi() {
+        boolean immersive = browserFullScreen || fullscreenMode;
         toolbarAutoHidden = false;
         View toolbar = findViewById(R.id.toolbarView);
-        toolbar.setVisibility(fullScreen ? View.GONE : View.VISIBLE);
-        mProgressView.setVisibility(fullScreen ? View.GONE : mProgressView.getVisibility());
+        toolbar.setVisibility(immersive ? View.GONE : View.VISIBLE);
+        mProgressView.setVisibility(immersive ? View.GONE : mProgressView.getVisibility());
 
         RelativeLayout.LayoutParams layoutParams =
                 (RelativeLayout.LayoutParams) mGeckoView.getLayoutParams();
         View root = findViewById(R.id.mainRelativeLayout);
         View decorView = getWindow().getDecorView();
-        if (fullScreen) {
+        if (immersive) {
             hideKeyboard(this);
             removeRelativeLayoutRule(layoutParams, RelativeLayout.BELOW);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -3160,7 +3182,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus && browserFullScreen) {
+        if (hasFocus && (browserFullScreen || fullscreenMode)) {
             hideSystemBars();
         }
     }
@@ -3273,7 +3295,7 @@ public class MainActivity extends AppCompatActivity {
     private void onPageScrolled(int scrollY) {
         int delta = scrollY - lastScrollY;
         lastScrollY = scrollY;
-        if (!autoHideBar || browserFullScreen || addressBarExpanded || delta == 0) {
+        if (!autoHideBar || browserFullScreen || fullscreenMode || addressBarExpanded || delta == 0) {
             return;
         }
         if ((delta > 0) != (scrollTravel > 0)) {
@@ -3290,7 +3312,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setToolbarAutoHidden(boolean hidden) {
-        if (hidden == toolbarAutoHidden || browserFullScreen) {
+        if (hidden == toolbarAutoHidden || browserFullScreen || fullscreenMode) {
             return;
         }
         toolbarAutoHidden = hidden;

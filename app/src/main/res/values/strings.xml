@@ -13,6 +13,7 @@
     <string name="title1_browsing_settings">Browsing Settings</string>
     <string name="title2_ui_settings">UI Settings</string>
     <string name="autohide_search_bar">Hide address bar when scrolling</string>
+    <string name="fullscreen_mode">Fullscreen (hide toolbar)</string>
     <string name="save">Save</string>
     <string name="title3_search_settings">Search Settings</string>
     <string name="search_engine">Search Engine</string>

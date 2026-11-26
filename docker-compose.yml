@@ -1,0 +1,20 @@
+services:
+  android:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gecko-browser-android:latest
+    working_dir: /workspace
+    volumes:
+      # Project source.
+      - .:/workspace
+      # Persist the Gradle cache (wrapper dist + downloaded dependencies) between runs.
+      - gradle-cache:/root/.gradle
+      # Override the host's local.properties with one pointing at the image's SDK.
+      - ./docker/local.properties:/workspace/local.properties:ro
+    # Default task; override with e.g.
+    #   docker compose run --rm android ./gradlew assembleRelease
+    command: ./gradlew assembleDebug
+
+volumes:
+  gradle-cache:

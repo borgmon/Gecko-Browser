@@ -283,6 +283,36 @@
                 android:padding="10dp">
 
                 <TextView
+                    android:layout_toStartOf="@+id/fullscreenToggle"
+                    android:layout_toLeftOf="@+id/fullscreenToggle"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fullscreen_mode"
+                    android:textSize="18sp" />
+
+                <Switch
+                    android:id="@+id/fullscreenToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
                     android:layout_toStartOf="@+id/hideWhiteSplashToggle"
                     android:layout_toLeftOf="@+id/hideWhiteSplashToggle"
                     android:layout_marginEnd="8dp"
